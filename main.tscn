@@ -73,7 +73,7 @@ position = Vector2(1036, 7)
 script = ExtResource("6_272bh")
 baby_scene = ExtResource("6_7mycd")
 banana_scene = ExtResource("8_5vw27")
-n_babies = 100
+n_babies = 8
 spawn_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Babies" unique_id=1632274805]
