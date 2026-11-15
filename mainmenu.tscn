@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bge3umvsidufk"]
+
+[ext_resource type="Script" uid="uid://287k6q6h044x" path="res://mainmenu.gd" id="1_cmhrf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d2nv2"]
+font_size = 53
+
+[sub_resource type="LabelSettings" id="LabelSettings_wgsso"]
+font_size = 105
+
+[node name="Control" type="Control" unique_id=2040456518]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cmhrf")
+
+[node name="Label" type="Label" parent="." unique_id=1394028243]
+layout_mode = 0
+offset_left = 25.999998
+offset_top = 181.99998
+offset_right = 1351.0
+offset_bottom = 407.0
+scale = Vector2(0.86218077, 1.4464922)
+text = "Collect Bananas to free your babies! 
+
+Be fast or else you get buried by the physics banana"
+label_settings = SubResource("LabelSettings_d2nv2")
+
+[node name="Label2" type="Label" parent="." unique_id=1502247893]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "possum simulator 2026"
+label_settings = SubResource("LabelSettings_wgsso")
+
+[node name="Button" type="Button" parent="." unique_id=1485171255]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 306.0
+offset_right = 563.0
+offset_bottom = 337.0
+scale = Vector2(2.620979, 4.138506)
+text = "PLAY NOW"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://buadvo4pian4u"]
+
+[ext_resource type="Script" uid="uid://c2qokpd8fx2yj" path="res://baby_poss.gd" id="1_evxie"]
+[ext_resource type="Texture2D" uid="uid://ctl7j5xgmsbly" path="res://graphics/baby_head.svg" id="2_u5pkf"]
+[ext_resource type="Texture2D" uid="uid://dqmkisutpxjby" path="res://graphics/baby_mouth_botom.svg" id="3_k8vwv"]
+[ext_resource type="Texture2D" uid="uid://14o5lw8kvt7g" path="res://graphics/baby_mouth_top.svg" id="4_nijoy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_evxie"]
+bounce = 0.65
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_evxie"]
+radius = 52.389046
+
+[node name="BabyPoss" type="RigidBody2D" unique_id=1687497539 node_paths=PackedStringArray("mouth_top", "mouth_bottom")]
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_evxie")
+gravity_scale = 0.5
+script = ExtResource("1_evxie")
+mouth_top = NodePath("mouthTop")
+mouth_bottom = NodePath("mouthBottom")
+
+[node name="BabyHead" type="Sprite2D" parent="." unique_id=1386136340]
+z_index = 2
+position = Vector2(-8, -25)
+rotation = -0.27034014
+scale = Vector2(0.51678675, 0.51678675)
+texture = ExtResource("2_u5pkf")
+
+[node name="mouthBottom" type="Node2D" parent="." unique_id=1638076710]
+rotation = -0.02617994
+scale = Vector2(0.5167869, 0.5167869)
+
+[node name="BabyMouthBotom" type="Sprite2D" parent="mouthBottom" unique_id=1438113627]
+position = Vector2(99.00003, -75.99997)
+rotation = -0.017453292
+texture = ExtResource("3_k8vwv")
+
+[node name="mouthTop" type="Node2D" parent="." unique_id=835606113]
+scale = Vector2(0.5167869, 0.5167869)
+
+[node name="BabyMouthTop" type="Sprite2D" parent="mouthTop" unique_id=1185662030]
+position = Vector2(11, -104)
+texture = ExtResource("4_nijoy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=207218283]
+z_index = 3
+position = Vector2(-2, -3)
+scale = Vector2(0.5167869, 0.5167869)
+shape = SubResource("CircleShape2D_evxie")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

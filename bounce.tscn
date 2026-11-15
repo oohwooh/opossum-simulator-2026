@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://3tljxkem5b61"]
+
+[ext_resource type="Script" uid="uid://quds87pqp6d2" path="res://bananaSpawner.gd" id="1_08qc8"]
+[ext_resource type="Script" uid="uid://dotom7kx3jkde" path="res://player.gd" id="2_88khm"]
+[ext_resource type="Texture2D" uid="uid://bswr3sik0nam3" path="res://opossum.svg" id="3_6802c"]
+[ext_resource type="Texture2D" uid="uid://b61dvrda24tgj" path="res://banana.svg" id="4_rf0v1"]
+[ext_resource type="Script" uid="uid://blmej033x6dos" path="res://bouncingbanana.gd" id="5_uo8sn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2yge"]
+radius = 26.7677
+height = 150.62427
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7f2o3"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7f2o3"]
+radius = 53.948914
+height = 487.1991
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uo8sn"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7f2o3"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uo8sn"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rxh2k"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_08qc8"]
+
+[node name="Node2D" type="Node2D" unique_id=1327967301]
+script = ExtResource("1_08qc8")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=865528946]
+script = ExtResource("2_88khm")
+
+[node name="Opossum" type="Sprite2D" parent="Player" unique_id=838184847]
+position = Vector2(598.11, 537)
+scale = Vector2(0.29, 0.29)
+texture = ExtResource("3_6802c")
+
+[node name="pickupArea" type="Area2D" parent="Player" unique_id=1131632647]
+position = Vector2(-3, -5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/pickupArea" unique_id=1578837478]
+position = Vector2(733.0001, 548.00006)
+rotation = -1.6316339
+shape = SubResource("CapsuleShape2D_h2yge")
+
+[node name="HeldBanana" type="Sprite2D" parent="Player" unique_id=1217902096]
+visible = false
+position = Vector2(756, 528.00006)
+rotation = 0.9096217
+scale = Vector2(-0.25142354, 0.23249821)
+texture = ExtResource("4_rf0v1")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1572191434]
+physics_material_override = SubResource("PhysicsMaterial_7f2o3")
+gravity_scale = 0.0
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("5_uo8sn")
+
+[node name="Area2D" type="Area2D" parent="RigidBody2D" unique_id=217762262 groups=["banana"]]
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="RigidBody2D/Area2D" unique_id=1534626736]
+position = Vector2(252.99998, 402)
+rotation = 2.5818293
+scale = Vector2(0.32003298, 0.24154347)
+shape = SubResource("CapsuleShape2D_7f2o3")
+debug_color = Color(0.7411765, 0.39215687, 0.6627451, 1)
+
+[node name="Banana" type="Sprite2D" parent="RigidBody2D" unique_id=414484215]
+position = Vector2(254, 379)
+scale = Vector2(0.33302468, 0.33302468)
+texture = ExtResource("4_rf0v1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D" unique_id=1135110742]
+position = Vector2(252.99998, 402)
+rotation = 2.5818293
+scale = Vector2(0.32003298, 0.24154347)
+shape = SubResource("CapsuleShape2D_7f2o3")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="." unique_id=527927485]
+disable_mode = 1
+physics_material_override = SubResource("PhysicsMaterial_uo8sn")
+gravity_scale = 0.0
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2" unique_id=598212339]
+position = Vector2(602, 634)
+shape = SubResource("WorldBoundaryShape2D_7f2o3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D2" unique_id=1414089808]
+position = Vector2(1, 299)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_uo8sn")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="RigidBody2D2" unique_id=1838238851]
+position = Vector2(514, 0)
+rotation = -3.1415925
+shape = SubResource("WorldBoundaryShape2D_rxh2k")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="RigidBody2D2" unique_id=334310817]
+position = Vector2(1152, 217)
+rotation = 4.712389
+shape = SubResource("WorldBoundaryShape2D_08qc8")
+
+[connection signal="area_entered" from="Player/pickupArea" to="Player" method="_on_pickup_area_area_entered"]

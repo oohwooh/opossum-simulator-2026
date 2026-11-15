@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://dndikly20qc4d"]
+
+[ext_resource type="Script" uid="uid://dotom7kx3jkde" path="res://player.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://quds87pqp6d2" path="res://bananaSpawner.gd" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://bswr3sik0nam3" path="res://opossum.svg" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://b61dvrda24tgj" path="res://banana.svg" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://brv1uvh3dtau4" path="res://banana.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bwd8ib0iblmaf" path="res://physicsbanana.tscn" id="3_kek77"]
+[ext_resource type="PackedScene" uid="uid://buadvo4pian4u" path="res://baby_poss.tscn" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://dm5kvgqf8lwcx" path="res://babies.gd" id="6_272bh"]
+[ext_resource type="PackedScene" uid="uid://brcg6rlhvvmpr" path="res://foodBanana.tscn" id="8_5vw27"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5vw27"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5vw27"]
+radius = 50.009903
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_272bh"]
+radius = 100.02
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_272bh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
+size = Vector2(942, 56.99994)
+
+[node name="Node2D" type="Node2D" unique_id=1327967301]
+script = ExtResource("1_1bvp3")
+banana_scene = ExtResource("3_h2yge")
+pbanana_scene = ExtResource("3_kek77")
+
+[node name="Banana" parent="." unique_id=1278055069 instance=ExtResource("3_h2yge")]
+
+[node name="Player" type="RigidBody2D" parent="." unique_id=1962356704]
+position = Vector2(507, 362)
+collision_layer = 5
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_5vw27")
+linear_damp_mode = 1
+linear_damp = 0.01
+angular_velocity = 1.7453293
+angular_damp_mode = 1
+script = ExtResource("1_0xm2m")
+
+[node name="Opossum" type="Sprite2D" parent="Player" unique_id=838184847]
+position = Vector2(-16.940063, -13.195068)
+scale = Vector2(0.29, 0.29)
+texture = ExtResource("1_ig7tw")
+
+[node name="pickupArea" type="Area2D" parent="Player" unique_id=1131632647]
+position = Vector2(-3, -5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/pickupArea" unique_id=1578837478]
+position = Vector2(-1.0499878, 4.8049316)
+rotation = -1.6316339
+shape = SubResource("CircleShape2D_5vw27")
+
+[node name="HeldBanana" type="Sprite2D" parent="Player" unique_id=1217902096]
+visible = false
+position = Vector2(756, 528.00006)
+rotation = -2.231971
+scale = Vector2(0.25142357, -0.23249821)
+texture = ExtResource("2_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=255941772]
+position = Vector2(-4.000122, -4.9999924)
+rotation = 3.0199175
+shape = SubResource("CircleShape2D_5vw27")
+
+[node name="Babies" type="Area2D" parent="." unique_id=1885915658 node_paths=PackedStringArray("spawn_shape")]
+position = Vector2(1036, 7)
+script = ExtResource("6_272bh")
+baby_scene = ExtResource("6_7mycd")
+banana_scene = ExtResource("8_5vw27")
+n_babies = 100
+spawn_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Babies" unique_id=1632274805]
+shape = SubResource("CircleShape2D_272bh")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Babies" unique_id=746586736]
+freeze = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Babies/RigidBody2D" unique_id=2010157410]
+position = Vector2(2, 620)
+shape = SubResource("WorldBoundaryShape2D_272bh")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Babies/RigidBody2D" unique_id=1088671553]
+position = Vector2(-1072, 382)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_272bh")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Babies/RigidBody2D" unique_id=1622645527]
+position = Vector2(-138.5, 271)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_5vw27")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Babies/RigidBody2D" unique_id=1438811219]
+position = Vector2(88, 505.99994)
+rotation = -1.5707963
+scale = Vector2(0.8287224, 1.2007382)
+shape = SubResource("WorldBoundaryShape2D_272bh")
+
+[node name="Banana" type="Sprite2D" parent="Babies/RigidBody2D" unique_id=1268324654]
+position = Vector2(-118, 322)
+scale = Vector2(0.4094776, 1.3670616)
+texture = ExtResource("2_h2yge")
+
+[node name="Timer" type="Timer" parent="." unique_id=1776235429]
+autostart = true
+
+[connection signal="area_entered" from="Player/pickupArea" to="Player" method="_on_pickup_area_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
